@@ -218,22 +218,25 @@ void playGame(bool debugMode) {
             }
             if (shipCount == 0)
             {
-                cout << "\n";
-                cout << "                                                                         You Lost The Game!!!";
-                cout << "\n";
+                cout << "********************************************\n";
+                cout << "              You Lost The Game!!!";
+                cout << "********************************************\n";
                 displayAIWin();
             }
             if (aIShipCount == 0)
             {
-                cout << "\n";
-                cout << "                                                                         You Won The Game!!!";
-                cout << "\n";
+                cout << "********************************************\n";
+                cout << "              You Won The Game\n!!!";
+                cout << "********************************************\n";
                 displayHumanWin();
             }
-            cout << "\nGame Statistics:\n";
+            cout << "-----------------------------------------\n";
+            cout << "Game Statistics:\n";
+            cout << "-----------------------------------------\n";
             cout << "Player Shots: " << playerShots << "\n";
             cout << "Player Hits: " << playerHits << "\n";
             cout << "Player Misses: " << playerMisses << "\n";
+            cout << "-----------------------------------------\n";
             cout << "AI Shots: " << aiShots << "\n";
             cout << "AI Hits: " << aiHits << "\n";
             cout << "AI Misses: " << aiMisses << "\n";

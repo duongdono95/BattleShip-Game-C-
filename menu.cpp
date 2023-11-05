@@ -23,10 +23,11 @@ void showMainMenu() {
     cout << "2. Toggle On/Off Debug Mode" << endl;
     cout << "3. Exit" << endl;
     cout << "Select an option: ";
-
 }
 
 void toggleDebugMode(bool& debugMode) {
     debugMode = !debugMode;
-    cout << "Debug mode is now " << (debugMode ? "ON" : "OFF") << "." << endl;
+    cout << "\n************************************************************\n";
+    cout << "                    Debug mode is now " << (debugMode ? "ON" : "OFF") << "." << endl;
+    cout << "************************************************************\n";
 }
