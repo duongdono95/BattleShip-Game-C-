@@ -1,3 +1,15 @@
+/***********************************************************************
+Bachelor of Software Engineering
+Media Design School
+Auckland
+New Zealand
+(c) [2023] Media Design School
+File Name : Programming–FinalProject–Bach_Duong.zip
+Description : Battleship game project - C++
+Author : Duong_Bach
+Mail : bach.duong@mds.ac.nz
+**************************************************************************/
+
 #include <iostream>
 #include <iomanip>
 #include <ctime>
@@ -13,10 +25,11 @@ using namespace std;
 #include "visualizations.h"
 
 struct Ship {
+    // TF: Variable Type
     string name;
-    int size;
+    int size{ 0 };
     vector<pair<int, int>> coordinates; // Pairs of row and column where the ship is placed
-    int hits; // Number of times the ship has been hit
+    int hits{ 0 }; // Number of times the ship has been hit
 };
 
 void computeGrid(char[10][10], char[10][10]);
@@ -29,15 +42,18 @@ void playerShoot(char[10][10], int, int, vector<Ship>& aiFleet);
 
 int shotRow();
 int shotColumn();
-void playGame();
+// TF: Default Parameter
+void playGame(bool debugMode = false);
 
 vector<Ship> playerFleet;
 vector<Ship> aiFleet;
 
+// TF: Reference
 bool isShipSunk(const Ship& ship) {
+    // TF: Relational Operator
     return ship.hits >= ship.size;
 }
-
+// TF: Variable Type
 int playerShots = 0;
 int playerHits = 0;
 int playerMisses = 0;
@@ -45,19 +61,30 @@ int aiShots = 0;
 int aiHits = 0;
 int aiMisses = 0;
 
-
-void playGame() {
-    bool debugMode = false;
+// TF: Default Parameter
+void playGame(bool debugMode) {
     int option;
     bool exitGame = false;
-
-    char g[10][10], aIg[10][10], placement, rplacement, randShip;
+    // TF: Pointer Initialised
+    int* ptrOption = new int;
+    // TF: Array
+    char g[10][10], aIg[10][10];
+    char placement, rplacement, randShip;
     int row, rrow, column, rcolumn, counter = 0, sNum = 5, shipCount = 17, aIShipCount = 17, gameState, hits = 0, aIHits = 0;
     string sName;
 
+    // TF: Dynamic Memory
+    int* temp = new int(0); // Dynamically allocate memory for an integer, initialized to 0
+    delete temp;
+    temp = nullptr;
+
     while (!exitGame) {
+        // TF: Iteration Structure
         showMainMenu();
-        cin >> option;
+        // TF: Pointer Dereferenced
+        cin >> *ptrOption;
+        option = *ptrOption;
+        // TF: Conditional Statement
         switch (option) {
         case 1:
         {
@@ -76,14 +103,16 @@ void playGame() {
             displayGrid(g, aIg, debugMode);
 
             randShip = chooseRand();
-
+            // TF: Constant
             const int shipSizes[] = { 5, 4, 3, 3, 2 };
 
+            // TF: Conditional Statement
             if (randShip == 'Y')
             {
                 sNum = 5;
+                // TF: Arithmetic Operator
                 sName = shipName(sNum, counter + 1);
-
+                // TF: Iteration Structure
                 for (int i = 0; i < 5; i++)
                 {
                     sNum = shipSizes[i];
@@ -93,6 +122,7 @@ void playGame() {
                         row = randR();
                         column = randC();
                         placement = randD();
+                        // TF: Logical Operator
                     } while (!validate(g, sNum, row, column, placement));
                     placeShips(g, sNum, row, column, placement, playerFleet, shipName(sNum, counter));
 
@@ -223,6 +253,7 @@ void playGame() {
         }
         
     }
+    delete ptrOption;
 }
 
 
@@ -321,7 +352,7 @@ string shipName(int sNum, int counter) {
 
 
 int getShipIndex(const vector<Ship>& fleet, int row, int column) {
-    for (size_t i = 0; i < fleet.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(fleet.size()); ++i) {
         for (const auto& coord : fleet[i].coordinates) {
             if (coord.first == row && coord.second == column) {
                 return i;
@@ -427,7 +458,8 @@ int shotColumn()
 
 int main()
 {
-    srand(time(0));
+    // TF: Pseudo Random Number
+    srand(static_cast<unsigned int>(time(0)));
     playGame();
     // Wait for user input to continue
     cout << "Press enter to start the game...";
